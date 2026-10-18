@@ -297,7 +297,7 @@ export default function Page() {
         <div className="section-heading">
           <div>
             <p className="eyebrow">اكتشف مجموعتنا</p>
-            <h2>منتجات على مزاجك</h2>
+            <h2>منتجات حسب احتياجك</h2>
           </div>
           <div className="filters">
             <button
@@ -427,7 +427,7 @@ export default function Page() {
           <span>© 2026 Nasser Tech</span>
         </div>
         <div className="designer">
-          تصميم وتطوير الموقع:{" "}
+          تصميم وتطوير :{" "}
           <a href={designerUrl} target="_blank" rel="noopener noreferrer">
             Webcraft Studio
           </a>
