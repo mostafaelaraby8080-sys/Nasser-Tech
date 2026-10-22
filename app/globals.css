@@ -1219,3 +1219,28 @@ button {
 .admin-empty {
   color: var(--muted);
 }
+
+.image-picker {
+  display: grid;
+  place-items: center;
+  min-height: 140px;
+  padding: 12px;
+  border: 1px dashed currentColor;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: center;
+  overflow: hidden;
+}
+.image-picker input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.image-picker img {
+  max-width: 100%;
+  max-height: 220px;
+  object-fit: contain;
+  border-radius: 8px;
+}

@@ -24,6 +24,32 @@ const empty = {
   specs: "",
 };
 
+// يصغّر الصورة ويحوّلها JPEG خفيف عشان تتحفظ بسرعة ومتتقلش على الموقع
+function fileToDataUrl(file: File, maxSize = 1000, quality = 0.82) {
+  return new Promise<string>((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const img = new window.Image();
+    img.onload = () => {
+      const scale = Math.min(1, maxSize / Math.max(img.width, img.height));
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.round(img.width * scale);
+      canvas.height = Math.round(img.height * scale);
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return reject(new Error("canvas"));
+      ctx.fillStyle = "#fff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      URL.revokeObjectURL(url);
+      resolve(canvas.toDataURL("image/jpeg", quality));
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error("image"));
+    };
+    img.src = url;
+  });
+}
+
 export default function AdminPage() {
   const [logged, setLogged] = useState(false);
   const [password, setPassword] = useState("");
@@ -48,8 +74,26 @@ export default function AdminPage() {
     if (r.ok) setLogged(true);
     else setMessage("كلمة المرور غير صحيحة");
   }
+  async function pickImage(file?: File) {
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      setMessage("اختار ملف صورة بس");
+      return;
+    }
+    try {
+      const image = await fileToDataUrl(file);
+      setForm((f) => ({ ...f, image }));
+      setMessage("");
+    } catch {
+      setMessage("تعذر قراءة الصورة، جرّب صورة تانية");
+    }
+  }
   async function add(e: FormEvent) {
     e.preventDefault();
+    if (!form.image) {
+      setMessage("اختار صورة المنتج الأول");
+      return;
+    }
     const r = await fetch("/api/products", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -127,7 +171,6 @@ export default function AdminPage() {
           {[
             ["name", "اسم المنتج"],
             ["price", "السعر"],
-            ["image", "رابط صورة المنتج"],
             ["badge", "شارة اختيارية"],
             ["specs", "المواصفات — افصل بفاصلة"],
           ].map(([key, label]) => (
@@ -139,6 +182,31 @@ export default function AdminPage() {
               required={key !== "badge" && key !== "specs"}
             />
           ))}
+          <label className="image-picker">
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                pickImage(e.target.files?.[0]);
+                e.target.value = "";
+              }}
+            />
+            {form.image ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={form.image} alt="معاينة الصورة" />
+            ) : (
+              <span>اختار صورة المنتج من الجهاز أو المعرض</span>
+            )}
+          </label>
+          {form.image && (
+            <button
+              type="button"
+              className="button quiet"
+              onClick={() => setForm({ ...form, image: "" })}
+            >
+              إزالة الصورة
+            </button>
+          )}
           <select
             value={form.category}
             onChange={(e) =>
