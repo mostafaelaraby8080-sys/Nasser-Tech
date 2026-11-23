@@ -1661,6 +1661,8 @@ button {
 .footer-links { display:flex; flex-wrap:wrap; align-items:center; gap:17px; }
 .footer-links a { display:inline-flex; align-items:center; gap:5px; color:#7d5c19; text-decoration:none; }
 .footer-links a:hover { color:#25221c; }
+.webcraft-credit { display:flex; justify-content:center; align-items:center; gap:6px; padding:0 24px 22px; color:#827c72; font-size:10px; }
+.webcraft-name { color:#7d5c19; font-weight:700; }
 .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 .store .hero-art img { object-fit:cover; object-position:center; }
 @media (max-width:800px) {
