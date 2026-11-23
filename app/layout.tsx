@@ -10,8 +10,8 @@ const cairo = Cairo({
 });
 
 export const metadata: Metadata = {
-  title: "ناصر تك | لابتوبات وإكسسوارات",
-  description: "اختيارات تقنية عملية بأسعار مناسبة من ناصر تك.",
+  title: "HG | لتجارة وتوزيع الأجهزة الكهربائية",
+  description: "تسوق الأجهزة الكهربائية الأصلية من HG — اختيارات متنوعة، جودة تثق فيها وخدمة تليق بيك.",
   generator: "v0.app",
   icons: {
     icon: [
