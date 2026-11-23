@@ -15,8 +15,16 @@ const unauthorized = () =>
   NextResponse.json({ error: "غير مصرح" }, { status: 401 });
 
 export async function GET() {
-  const products = await getProducts();
-  return NextResponse.json(products.map(publicProduct));
+  try {
+    const products = await getProducts();
+    return NextResponse.json(products.map(publicProduct));
+  } catch (error) {
+    console.error("[products] Failed to load products:", error);
+    return NextResponse.json(
+      { error: "تعذر تحميل المنتجات" },
+      { status: 503 },
+    );
+  }
 }
 
 export async function POST(request: Request) {
