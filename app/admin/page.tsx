@@ -70,10 +70,26 @@ export default function AdminPage() {
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState("");
   const [confirmId, setConfirmId] = useState<string | null>(null);
-  const load = () =>
-    fetch("/api/products")
-      .then((r) => r.json())
-      .then(setProducts);
+  const load = async () => {
+    try {
+      const response = await fetch("/api/products");
+      const data: unknown = await response.json().catch(() => null);
+      if (!response.ok) {
+        const error =
+          data && typeof data === "object" && "error" in data
+            ? String(data.error)
+            : "تعذر تحميل المنتجات";
+        throw new Error(error);
+      }
+      if (!Array.isArray(data)) throw new Error("تعذر تحميل المنتجات");
+      setProducts(data as Product[]);
+      setMessage("");
+    } catch (error) {
+      setMessage(
+        error instanceof Error ? error.message : "تعذر تحميل المنتجات",
+      );
+    }
+  };
   useEffect(() => {
     load();
   }, []);
