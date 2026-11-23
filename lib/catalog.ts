@@ -1,16 +1,28 @@
 // ثوابت وأنواع مشتركة بين المتجر ولوحة التحكم (من غير أي اتصال بالقاعدة)
 export const CATEGORIES = [
-  { key: "pc", label: "PC" },
-  { key: "laptops", label: "لابتوب" },
-  { key: "hardware", label: "هاردوير" },
-  { key: "accessories", label: "إكسسوار" },
-  { key: "monitors", label: "شاشة" },
+  { key: "electrical-appliances", label: "أجهزة كهربائية" },
+  { key: "home-tools", label: "أدوات منزلية" },
 ] as const;
 
 export type Category = (typeof CATEGORIES)[number]["key"];
 
+const legacyCategories: Record<string, Category> = {
+  pc: "electrical-appliances",
+  laptops: "electrical-appliances",
+  hardware: "electrical-appliances",
+  monitors: "electrical-appliances",
+  accessories: "home-tools",
+};
+
+export const normalizeCategory = (key: string): Category =>
+  CATEGORIES.find((category) => category.key === key)?.key ??
+  legacyCategories[key] ??
+  "electrical-appliances";
+
 export const categoryLabel = (key: string) =>
-  CATEGORIES.find((c) => c.key === key)?.label ?? key;
+  CATEGORIES.find((category) => category.key === key)?.label ??
+  CATEGORIES.find((category) => category.key === normalizeCategory(key))?.label ??
+  key;
 
 export type Product = {
   _id?: string;
@@ -29,14 +41,11 @@ export type Product = {
 
 // فلاتر المتجر
 export const FILTERS = [
-  { key: "all", label: "All" },
-  { key: "pc", label: "PC" },
-  { key: "laptops", label: "Laptops" },
-  { key: "hardware", label: "Hardware" },
-  { key: "accessories", label: "Accessories" },
-  { key: "monitors", label: "Monitors" },
-  { key: "new", label: "New" },
-  { key: "offers", label: "Offers" },
+  { key: "all", label: "كل المنتجات" },
+  { key: "electrical-appliances", label: "أجهزة كهربائية" },
+  { key: "home-tools", label: "أدوات منزلية" },
+  { key: "new", label: "جديد" },
+  { key: "offers", label: "عروض" },
 ] as const;
 
 export type FilterKey = (typeof FILTERS)[number]["key"];

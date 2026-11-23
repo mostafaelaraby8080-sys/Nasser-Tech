@@ -2,7 +2,7 @@
 
 import useSWR from "swr";
 import { useMemo, useState } from "react";
-import { ArrowLeft, ArrowUpLeft, BadgeCheck, Headphones, MapPin, Menu, Search, ShieldCheck, ShoppingBag, Truck, Zap } from "lucide-react";
+import { ArrowLeft, ArrowUpLeft, BadgeCheck, ExternalLink, Headphones, MapPin, Menu, Phone, Search, ShieldCheck, ShoppingBag, Truck, Zap } from "lucide-react";
 import { CATEGORIES, type Product } from "@/lib/catalog";
 
 const logoUrl = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202026-11-23%20at%206.11.38%20AM-Fr85Zm33RMQ6rwTW9pR34DXimaggtX.jpeg";
@@ -31,7 +31,7 @@ export function HgStorefront() {
 
   return (
     <main className="store" dir="rtl">
-      <div className="announcement"><Zap size={14} fill="currentColor" /> عروض مميزة على الأجهزة الكهربائية — اختار جهازك وخليك مطمّن</div>
+      <div className="announcement"><Zap size={14} fill="currentColor" /> عروض مميزة على الأجهزة الكهربائية والأدوات المنزلية — اختار اللي يناسبك</div>
       <header className="site-header">
         <a className="brand" href="#home" aria-label="HG — الصفحة الرئيسية"><img src={logoUrl} alt="شعار HG لتجارة وتوزيع الأجهزة الكهربائية" /></a>
         <nav className="main-nav" aria-label="التنقل الرئيسي">
@@ -62,7 +62,7 @@ export function HgStorefront() {
       </section>
 
       <section className="catalog-section" id="products">
-        <div className="section-heading"><div><span className="section-kicker">اختار اللي يناسبك</span><h2>تسوق <span>منتجاتنا</span></h2></div><p>تشكيلة متنوعة من الأجهزة الكهربائية<br />علشان كل ركن في بيتك يبقى أحلى.</p></div>
+        <div className="section-heading"><div><span className="section-kicker">اختار اللي يناسبك</span><h2>تسوق <span>منتجاتنا</span></h2></div><p>أجهزة كهربائية وأدوات منزلية<br />علشان كل ركن في بيتك يبقى أحلى.</p></div>
         <div className="catalog-tools">
           <div className="category-tabs" role="group" aria-label="تصفية حسب الفئة">
             <button aria-pressed={activeCategory === "all"} className={activeCategory === "all" ? "category-tab selected" : "category-tab"} onClick={() => setActiveCategory("all")}>كل المنتجات</button>
@@ -81,8 +81,8 @@ export function HgStorefront() {
         ) : <div className="catalog-message"><ShoppingBag size={25} /><strong>{query ? "ملقيناش المنتج ده" : "قريباً هتلاقوا منتجاتنا هنا"}</strong><span>{query ? "جرب كلمة بحث تانية أو اختار فئة مختلفة." : "بنضيف تشكيلتنا الجديدة دلوقتي — تابعونا قريب."}</span></div>}
       </section>
 
-      <section className="contact-banner" id="contact"><div><span className="section-kicker">محتاج مساعدة؟</span><h2>اختيارك الصح يبدأ <span>بسؤال</span></h2><p>فريق HG جاهز يساعدك تختار الجهاز الأنسب ليك.</p></div><a className="gold-button" href="https://wa.me/" target="_blank" rel="noreferrer">كلمنا على واتساب <ArrowLeft size={17} /></a></section>
-      <footer className="site-footer"><a className="footer-brand" href="#home"><img src={logoUrl} alt="HG" /></a><span>© {new Date().getFullYear()} HG — لتجارة وتوزيع الأجهزة الكهربائية</span><a href="#home">العودة للأعلى ↑</a></footer>
+      <section className="contact-banner" id="contact"><div><span className="section-kicker">محتاج مساعدة؟</span><h2>اختيارك الصح يبدأ <span>بسؤال</span></h2><p>فريق HG جاهز يساعدك تختار الجهاز الأنسب ليك.</p><div className="store-contact-details"><a href="https://maps.google.com/?q=دمياط+الشارع+الحربي+بجوار+ماركت+الكيكي" target="_blank" rel="noreferrer"><MapPin size={17} /><span>دمياط، الشارع الحربي بجوار ماركت الكيكي</span></a><a href="tel:01286066660"><Phone size={16} /><span dir="ltr">0128 6066 660</span></a><a href="tel:0572333232"><Phone size={16} /><span dir="ltr">057 / 233 3232</span></a></div></div><a className="gold-button" href="https://wa.me/201286066660" target="_blank" rel="noreferrer">كلمنا على واتساب <ArrowLeft size={17} /></a></section>
+      <footer className="site-footer"><a className="footer-brand" href="#home"><img src={logoUrl} alt="HG" /></a><span>© {new Date().getFullYear()} HG — لتجارة وتوزيع الأجهزة الكهربائية والأدوات المنزلية</span><div className="footer-links"><a href="https://www.facebook.com/profile.php?id=61594662582257" target="_blank" rel="noreferrer" aria-label="صفحة HG على فيسبوك"><ExternalLink size={16} /> فيسبوك</a><a href="/admin">لوحة الإدارة</a><a href="#home">العودة للأعلى ↑</a></div></footer>
     </main>
   );
 }

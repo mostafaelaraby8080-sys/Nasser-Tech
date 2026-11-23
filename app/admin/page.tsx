@@ -15,13 +15,14 @@ import {
   CATEGORIES,
   categoryLabel,
   isAvailable,
+  normalizeCategory,
   type Product,
 } from "@/lib/catalog";
 import { ProductCard } from "@/components/product-card";
 
 const empty = {
   name: "",
-  category: "laptops" as Product["category"],
+  category: "electrical-appliances" as Product["category"],
   price: "",
   oldPrice: "",
   description: "",
@@ -132,7 +133,7 @@ export default function AdminPage() {
     setEditingId(p._id ?? null);
     setForm({
       name: p.name,
-      category: p.category,
+      category: normalizeCategory(p.category),
       price: String(p.price),
       oldPrice: p.oldPrice ? String(p.oldPrice) : "",
       description: p.description,
@@ -246,7 +247,7 @@ export default function AdminPage() {
         <form className="admin-login" onSubmit={login}>
           <LockKeyhole />
           <h1>دخول الإدارة</h1>
-          <p>أدخل كلمة المرور لإدارة منتجات ناصر تك.</p>
+          <p>أدخل كلمة المرور لإدارة منتجات HG.</p>
           <input
             type="password"
             value={password}

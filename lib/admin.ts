@@ -22,7 +22,7 @@ function passwordMatches(input: string) {
 
 export async function isAdmin() {
   const secret = getSecret();
-  const token = (await cookies()).get("nasser_admin")?.value;
+  const token = (await cookies()).get("hg_admin")?.value;
   if (!secret || !token) return false;
   try {
     await jwtVerify(token, secret);

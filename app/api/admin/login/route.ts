@@ -31,7 +31,7 @@ export async function POST(request: Request) {
   }
   attempts.delete(ip);
   const response = NextResponse.json({ ok: true });
-  response.cookies.set("nasser_admin", token, {
+  response.cookies.set("hg_admin", token, {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
